@@ -3,7 +3,7 @@
 -- Генеральные директора
 DROP TABLE IF EXISTS public.general_managers;
 CREATE TABLE public.general_managers (
-    id int PRIMARY KEY,
+    id INT PRIMARY KEY GENERATED ALWAYS AS identity,
     surname VARCHAR(30) NOT NULL,
     name VARCHAR(30) NOT NULL,
     patronymic VARCHAR(30) NOT NULL,
@@ -11,10 +11,12 @@ CREATE TABLE public.general_managers (
     date_of_birth date NOT null
 );
 
+--insert into public.general_managers (surname, name, patronymic, citizenship, date_of_birth) values ('aaa', 'bbb', 'ccc', 'dfadf', '1990-01-01');
+
 -- Фирмы
 DROP TABLE IF EXISTS public.brands;
 CREATE TABLE public.brands (
-    id int PRIMARY KEY,
+    id INT PRIMARY KEY GENERATED ALWAYS AS identity,
     name_company VARCHAR(100) NOT NULL,
     country VARCHAR(40) NOT NULL,
     year_of_create int NOT NULL,
@@ -24,7 +26,7 @@ CREATE TABLE public.brands (
 -- ТЦ
 DROP TABLE IF EXISTS public.sc;
 CREATE TABLE public.sc (
-    id int PRIMARY KEY,
+    id INT PRIMARY KEY GENERATED ALWAYS AS identity,
     name VARCHAR(50) NOT NULL,
     address VARCHAR(100) NOT NULL,
     number_of_floors int NOT NULL,
@@ -34,7 +36,7 @@ CREATE TABLE public.sc (
 -- Магазины
 DROP TABLE IF EXISTS public.shops;
 CREATE TABLE public.shops (
-    id int PRIMARY KEY,
+    id INT PRIMARY KEY GENERATED ALWAYS AS identity,
     name VARCHAR(50) NOT NULL,
     specialization VARCHAR(20) NOT NULL,
     number_of_employees int NOT NULL,
@@ -45,7 +47,7 @@ CREATE TABLE public.shops (
 -- Владельцы ТЦ
 DROP TABLE IF EXISTS public.owners_sc;
 CREATE TABLE public.owners_sc (
-    id int PRIMARY KEY,
+    id INT PRIMARY KEY GENERATED ALWAYS AS identity,
     surname VARCHAR(30) NOT NULL,
     name VARCHAR(30) NOT NULL,
     patronymic VARCHAR(30) NOT NULL,
