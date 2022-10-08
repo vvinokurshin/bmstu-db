@@ -116,3 +116,38 @@ if res:
 $$ LANGUAGE plpython3u;
 
 SELECT * FROM get_info_shop(1);
+
+-- Защита 
+-- Если фирма удаляется, то в магазине с этой фирмой прибыль устанавливается в ноль
+
+CREATE OR REPLACE FUNCTION set_zero_to_shop_tr()
+RETURNS TRIGGER 
+AS $$
+del_id_brand = TD["old"]["id"]
+
+nums_shop = plpy.execute(f" \
+SELECT id_shop \
+FROM public.links_brands_n_shops \
+WHERE id_brand = {del_id_brand}")
+
+for num in nums_shop:
+	cur_num = num['id_shop']
+	run = plpy.execute(f" \
+	UPDATE public.shops set profit = 0 \
+	where shops.id = {cur_num}")
+
+$$ LANGUAGE plpython3u;
+
+CREATE OR REPLACE TRIGGER set_zero_to_shop
+AFTER DELETE ON public.brands 
+FOR EACH ROW 
+EXECUTE PROCEDURE set_zero_to_shop_tr();
+
+DELETE FROM public.brands 
+WHERE id = 3;
+
+SELECT shops.id, profit  
+FROM public.links_brands_n_shops 
+	JOIN public.shops 
+	ON shops.id = links_brands_n_shops.id_shop 
+WHERE links_brands_n_shops.id_brand = 3;
