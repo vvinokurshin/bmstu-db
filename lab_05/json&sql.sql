@@ -209,3 +209,8 @@ SELECT * FROM shops_json;
 
 select jsonb_array_elements(info::jsonb)
 from shops_json;
+
+-- Защита - считать в массив
+COPY 
+	(SELECT json_agg(b) FROM public.brands b)
+to '/home/data/brands_arr.json';
