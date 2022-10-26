@@ -1,0 +1,1 @@
+SELECT public.max_date_gm('Россия');
