@@ -1,0 +1,1 @@
+SELECT * FROM public.filter_country_or_year('Россия', 2000);
