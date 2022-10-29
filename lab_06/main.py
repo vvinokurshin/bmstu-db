@@ -8,7 +8,7 @@ def query(cursor, filename):
 
 
 def handler(cursor, mode):
-    if 1 <= mode <= 9:
+    if 1 <= mode <= 9 or mode == 11:
         query(cursor, f"{mode}.sql")
     elif mode == 10:
         filename = utils.generate_data()
@@ -32,6 +32,8 @@ def menu():
     print('8) Вывести название текущей БД')
     print('9) Создать таблицу, содержащую информацию о скидках в магазинах')
     print('10) Заполнить случайными данными созданную таблицу')
+    print('11) Вывести имена и фамилии владельцев ТЦ и ген. мен. фирм,\
+ у которых совпадают фамилии (защита)')
     print('0) Выход')
 
 
